@@ -35,6 +35,10 @@ public class LocationMapper {
         Double mslAltitude = location.getExtras().getDouble(NmeaClient.NMEA_ALTITUDE_EXTRA);
         position.put("altitude", mslAltitude);
       }
+      if (location.getExtras().containsKey(NmeaClient.NMEA_SATELLITES_IN_VIEW_EXTRA)) {
+          Double mslSatellitesInView = location.getExtras().getDouble(NmeaClient.NMEA_SATELLITES_IN_VIEW_EXTRA);
+          position.put("satellites_in_view", mslSatellitesInView);
+      }
     }
     return position;
   }

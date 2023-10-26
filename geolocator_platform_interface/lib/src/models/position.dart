@@ -13,6 +13,7 @@ class Position {
     required this.accuracy,
     required this.altitude,
     required this.altitudeAccuracy,
+    required this.satellitesInView,
     required this.heading,
     required this.headingAccuracy,
     required this.speed,
@@ -43,6 +44,16 @@ class Position {
   /// The accuracy is not available on all devices. In these cases the value is
   /// 0.0.
   final double altitudeAccuracy;
+
+  /// On Android: The combined number of satellites in view.
+  /// Combining GLONASS, BAIDU, GALILEO, GPS and QZSS.
+  /// It is depending on the GPS chip and other factors what satellites are available in view.
+  /// It is unclear if the satellites are all used for fix determination.
+  /// Information comes from NMEA messages.
+  ///
+  /// On other platforms: This information is not available. It does nothing.
+  /// The value will be 0.0.
+  final double satellitesInView;
 
   /// The estimated horizontal accuracy of the position in meters.
   ///
@@ -102,6 +113,7 @@ class Position {
         other.speed == speed &&
         other.speedAccuracy == speedAccuracy &&
         other.timestamp == timestamp &&
+        other.satellitesInView == satellitesInView &&
         other.isMocked == isMocked;
 
     return areEqual;
@@ -112,6 +124,7 @@ class Position {
       accuracy.hashCode ^
       altitude.hashCode ^
       altitudeAccuracy.hashCode ^
+      satellitesInView.hashCode ^
       heading.hashCode ^
       headingAccuracy.hashCode ^
       latitude.hashCode ^
@@ -152,6 +165,7 @@ class Position {
       timestamp: timestamp,
       altitude: positionMap['altitude'] ?? 0.0,
       altitudeAccuracy: positionMap['altitude_accuracy'] ?? 0.0,
+      satellitesInView: positionMap['satellites_in_view'] ?? 0.0,
       accuracy: positionMap['accuracy'] ?? 0.0,
       heading: positionMap['heading'] ?? 0.0,
       headingAccuracy: positionMap['heading_accuracy'] ?? 0.0,
@@ -170,6 +184,7 @@ class Position {
         'timestamp': timestamp?.millisecondsSinceEpoch,
         'accuracy': accuracy,
         'altitude': altitude,
+        'satellites_in_view': satellitesInView,
         'altitude_accuracy': altitudeAccuracy,
         'floor': floor,
         'heading': heading,

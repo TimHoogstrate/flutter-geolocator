@@ -16,6 +16,7 @@ Position get mockPosition => Position(
       isUtc: true,
     ),
     altitude: 3000.0,
+    satellitesInView: 3.0,
     altitudeAccuracy: 0.0,
     accuracy: 0.0,
     heading: 0.0,
